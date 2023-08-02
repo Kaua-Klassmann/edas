@@ -11,14 +11,14 @@ export async function get(dados, temInput, temSelect) {
       for (let input of inputs) {
         input.removeAttribute("disabled", "disabled");
       };
-    }
+    };
 
     if (temSelect) {
       const selects = document.querySelectorAll("select");
       for (let select of selects) {
         select.removeAttribute("disabled", "disabled");
       };
-    }
+    };
 
     return response.data;
   } catch {
