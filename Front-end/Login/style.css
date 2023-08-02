@@ -1,0 +1,41 @@
+nav {
+    height: 7vh;
+    border-bottom: 1px solid #000000;
+}
+
+main {
+    background: linear-gradient(to right bottom, white, lightgreen, green, blue);
+    height: 93vh;
+    display: grid;
+    place-items: center;
+}
+
+.box {
+    width: 350px;
+}
+
+.div-botao {
+    display: grid;
+    place-items: center;
+}
+
+.botao {
+    height: 33px;
+    width: 90%;
+}
+
+form a {
+    float: right;
+    text-decoration: none;
+}
+
+.error {
+    margin-top: 30px;
+}
+
+.alinharLoading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

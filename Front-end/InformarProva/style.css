@@ -1,0 +1,36 @@
+nav {
+    height: 7vh;
+    border-bottom: 1px solid #000000;
+}
+
+main {
+    background: linear-gradient(to right bottom, white, lightgreen, green, blue);
+    height: 93vh;
+    display: grid;
+    place-items: center;
+}
+
+form {
+    padding-top: 20px;
+}
+
+form input, form select {
+    margin-bottom: 10px;
+}
+
+main .div-botao {
+    display: grid;
+    place-items: center;
+}
+
+main .botao {
+    height: 33px;
+    width: 90%;
+}
+
+.alinharLoading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

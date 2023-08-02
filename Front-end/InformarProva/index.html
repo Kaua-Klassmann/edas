@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<!-- Criado por Kauã Klassmann -->
+
+<link lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="script.js" type="module" defer></script>
+    <title>Informar prova</title>
+</head>
+
+<body>
+    <nav class="container-fluid navbar navbar-expand bg-light">
+        <a class="text-dark p-3 nav-link" href="../VisualizarProvas/">Ver provas</a>
+        <a class="text-dark p-3 nav-link" href="../InformarProva/">Informar provas</a>
+        <a class="text-dark p-3 nav-link ms-auto me-2" id="btnLogoff" href="../Login/">Logoff</a>
+    </nav>
+    <main>
+        <div class="px-3 bg-light rounded-3">
+            <h1 class="py-2 text-center">Registrar prova</h1>
+            <form class="px-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="disciplina" class="form-label">Disciplina: </label>
+                        <select class="form-select" id="disciplina" disabled></select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="turma" class="form-label">Turma: </label>
+                        <select id="turma" class="form-select" disabled></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label" for="data">Data: </label>
+                        <input class="form-control" type="date" id="dia" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="horario">Horário: </label>
+                        <input class="form-control" type="time" id="horario" disabled>
+                    </div>
+                </div>
+                <div class="div-botao my-4">
+                    <input class="botao text-center" type="submit" value="Confirmar" disabled>
+                </div>
+                <div id="error" role="alert"></div>
+            </form>
+        </div>
+    </main>
+    <!-- LOADING -->
+    <div class="alinharLoading">
+        <div class="spinner-border"></div>
+    </div>
+</body>
+
+</html>
