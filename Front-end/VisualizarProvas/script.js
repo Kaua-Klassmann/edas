@@ -207,4 +207,4 @@ if (usuarioID == undefined) {
         Cookies.remove("usuarioCurso", { path: "/" });
         Cookies.remove("usuarioAno", { path: "/" });
     });
-}
+};
