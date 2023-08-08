@@ -12,14 +12,14 @@ class ProvaController {
 
         if(! (await schema.isValid(req.query))) {
             return res.status(400).json({error: "Formato inválido."});
-        }
+        };
 
         const { id } = req.query;
         const prova = await Prova.findByPk(id);
 
         if(!prova) {
             return res.status(400).json({error: "Prova não encontrada"});
-        }
+        };
 
         const { curso, ano, turma, disciplina, dia, horario, usuario } = prova;
         return res.json({
@@ -32,12 +32,12 @@ class ProvaController {
             horario,
             usuario
         });
-    }
+    };
 
     async index(req,res) {
         const provas = await Prova.findAll();
         return res.json(provas);
-    }
+    };
 
     async store(req,res) {
 
@@ -55,7 +55,7 @@ class ProvaController {
 
         if(! (await schema.isValid(req.body))) {
             return res.status(400).json({error: "Formato inválido."});
-        }
+        };
 
        /*const provaStore = await Prova.findOne({
             where: {curso: req.body.curso},
@@ -80,7 +80,7 @@ class ProvaController {
             horario,
             usuario
         });
-    }
-}
+    };
+};
 
 export default new ProvaController();

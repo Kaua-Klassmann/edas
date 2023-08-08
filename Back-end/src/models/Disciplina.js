@@ -26,12 +26,12 @@ class Disciplina extends Model {
         );
 
         return this;
-    }
+    };
 
     static associate(models) {
         this.belongsTo(models.Curso, { foreignKey: 'curso'});
         this.hasMany(models.Prova, { foreignKey: 'disciplina' });
-    }
-}
+    };
+};
 
 export default Disciplina;

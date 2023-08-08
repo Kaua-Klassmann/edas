@@ -17,7 +17,7 @@ class UsuarioController {
 
         if(! (await schema.isValid(req.body))) {
             return res.status(400).json({error: "Formato inválido."});
-        }
+        };
 
         const usuario = await Usuario.findOne({
             where: {email: req.body.email}
@@ -25,7 +25,7 @@ class UsuarioController {
 
         if(usuario) {
             return res.status(400).json({error: "O email já está cadastrado."});
-        }
+        };
 
         const {id, nome, email } = await Usuario.create(req.body);
         return res.json({
@@ -33,12 +33,12 @@ class UsuarioController {
             nome, 
             email,
         });
-    }
+    };
 
     async index(req,res) {
         const usuarios = await Usuario.findAll();
         return res.json(usuarios);
-    }
-}
+    };
+};
 
 export default new UsuarioController();

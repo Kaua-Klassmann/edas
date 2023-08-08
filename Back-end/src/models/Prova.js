@@ -32,14 +32,14 @@ class Prova extends Model {
         );
 
         return this;
-    }
+    };
 
     static associate(models) {
         this.belongsTo(models.Curso, { foreignKey: 'curso'});
         this.belongsTo(models.Turma, { foreignKey: 'turma'});
         this.belongsTo(models.Disciplina, { foreignKey: 'disciplina'});
         this.belongsTo(models.Usuario, { foreignKey: 'usuario'});
-    }
-}
+    };
+};
 
 export default Prova;

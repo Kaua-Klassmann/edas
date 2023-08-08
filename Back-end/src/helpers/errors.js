@@ -5,7 +5,7 @@ export const jsonSyntaxError = (err, req, res, next) => {
         
         //console.log(err);
         return res.status(400).json({error: "Erro de sintaxe do JSON"});
-    }
+    };
     
     next();
-}
+};

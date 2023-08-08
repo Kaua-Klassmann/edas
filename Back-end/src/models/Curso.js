@@ -22,13 +22,13 @@ class Curso extends Model {
         );
 
         return this;
-    }
+    };
 
     static associate(models) {
         this.hasMany(models.Usuario, { foreignKey: 'curso' });
         this.hasMany(models.Prova, { foreignKey: 'curso' });
         this.hasMany(models.Disciplina, { foreignKey: 'curso' });
-    }
-}
+    };
+};
 
 export default Curso;

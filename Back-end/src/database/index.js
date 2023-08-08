@@ -17,7 +17,7 @@ const models = [
 class Database {
   constructor() {
     this.init();
-  }
+  };
 
   init() {
     // Faz a conexão com o BD
@@ -29,7 +29,7 @@ class Database {
       .map(
         (model) => model.associate && model.associate(this.connection.models)
       );
-  }
-}
+  };
+};
 
 export default new Database();

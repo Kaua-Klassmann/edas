@@ -40,14 +40,14 @@ class Usuario extends Model {
 
 
         return this;
-    }
+    };
 
     static associate(models) {
         this.belongsTo(models.Curso, { foreignKey: 'curso'});
         this.belongsTo(models.Turma, { foreignKey: 'turma'});
         this.hasMany(models.Prova, { foreignKey: 'usuario' });
-    }
+    };
 
-}
+};
 
 export default Usuario;

@@ -11,14 +11,14 @@ class DisciplinaController{
 
         if(! (await schema.isValid(req.query))) {
             return res.status(400).json({error: "Formato inválido."});
-        }
+        };
 
         const { id } = req.query;
         const disciplina = await Disciplina.findByPk(id);
 
         if(!disciplina) {
             return res.status(400).json({error: "Disciplina não encontrada"});
-        }
+        };
 
         const { nome, ano, curso } = disciplina;
 
@@ -28,12 +28,12 @@ class DisciplinaController{
             ano,
             curso,
         });
-    }
+    };
 
     async index(req,res) {
         const disciplinas = await Disciplina.findAll();
         return res.json(disciplinas);
-    }
-}
+    };
+};
 
 export default new DisciplinaController();
