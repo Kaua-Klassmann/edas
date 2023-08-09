@@ -24,10 +24,10 @@ class Usuario extends Model {
 
                 senha_virtual: {
                     type: DataTypes.VIRTUAL(255),
-                    allowNull: false,
+                    //allowNull: false,
                 }, 
 
-                senha_hash: {
+                senha: {
                     type: DataTypes.STRING(255),
                     allowNull: false,
                 }, 
@@ -45,8 +45,8 @@ class Usuario extends Model {
 
         this.addHook("beforeSave", async Usuario => {
             if(Usuario.senha_virtual) {
-                Usuario.senha_hash = await bcrypt.hash(Usuario.senha_virtual, 8);
-                console.log(Usuario.senha_hash);
+                Usuario.senha = await bcrypt.hash(Usuario.senha_virtual, 8);
+                console.log(Usuario.senha);
             };
         });
 
