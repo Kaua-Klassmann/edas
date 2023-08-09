@@ -47,7 +47,7 @@ class Usuario extends Model {
             if(Usuario.senha_virtual) {
                 Usuario.senha_hash = await bcrypt.hash(Usuario.senha_virtual, 8);
                 console.log(Usuario.senha_hash);
-            }
+            };
         });
 
         return this;
