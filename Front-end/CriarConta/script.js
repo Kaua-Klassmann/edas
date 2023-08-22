@@ -32,12 +32,12 @@ selectCurso.addEventListener("change", event => {
     option.value = 1;
     selectAno.append(option);
   } else {
-    for (let i = 1; i < 5; i++) {
+    for (let ano = 1; ano <= 4; ano++) {
       const option = document.createElement("option");
-      const text = document.createTextNode(`${i}°Ano`);
+      const text = document.createTextNode(`${ano}°Ano`);
 
       option.append(text);
-      option.value = i;
+      option.value = ano;
       selectAno.append(option);
     };
   };
