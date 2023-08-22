@@ -1,37 +1,53 @@
+body {
+  background: linear-gradient(45deg, #21d4fd 0%, #b721ff 100%);
+}
+
 nav {
-    height: 7vh;
-    border-bottom: 1px solid #000000;
+  height: 7vh;
 }
 
 main {
-    background: linear-gradient(to right bottom, white, lightgreen, green, blue);
-    min-height: 93vh;
-    display: grid;
-    place-items: center;
+  min-height: 93vh;
+  display: grid;
+  place-items: center;
 }
 
 form {
-    padding-top: 20px;
+  padding-top: 20px;
+}
+
+.box {
+  background-color: #f1f1f1;
+}
+
+.form-control, .form-select {
+    background-color: #e1e1e1;
 }
 
 form input, form select {
-    margin-bottom: 9px;
+  margin-bottom: 9px;
 }
 
 .div-botao {
-    margin: 10px;
-    display: grid;
-    place-items: center;
+  
+  display: grid;
+  place-items: center;
 }
 
 .botao {
-    height: 33px;
-    width: 90%;
+  height: 40px;
+  width: 90%;
 }
 
 .alinharLoading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+    .box {
+        max-width: 98vw;
+    }
 }
