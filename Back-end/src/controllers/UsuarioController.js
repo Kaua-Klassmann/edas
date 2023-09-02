@@ -37,7 +37,17 @@ class UsuarioController {
 
     async index(req,res) {
         const usuarios = await Usuario.findAll();
-        return res.json(usuarios);
+        const usuariosReturn = usuarios.map(e => {
+            return {
+                id: e.id,
+                nome: e.nome,
+                email: e.email,
+                ano: e.ano,
+                curso: e.curso,
+                turma: e.turma
+            }
+        });
+        return res.json(usuariosReturn);
     };
 };
 

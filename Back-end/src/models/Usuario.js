@@ -24,7 +24,7 @@ class Usuario extends Model {
 
                 senha_virtual: {
                     type: DataTypes.VIRTUAL(255),
-                    //allowNull: false,
+                    allowNull: false,
                 }, 
 
                 senha: {
@@ -46,12 +46,15 @@ class Usuario extends Model {
         this.addHook("beforeSave", async Usuario => {
             if(Usuario.senha_virtual) {
                 Usuario.senha = await bcrypt.hash(Usuario.senha_virtual, 8);
-                console.log(Usuario.senha);
             };
         });
 
         return this;
     };
+
+    async checkPassword(senha_virtual){
+        return await bcrypt.compare(senha_virtual, this.senha);
+    }
 
     static associate(models) {
         this.belongsTo(models.Curso, { foreignKey: 'curso'});
