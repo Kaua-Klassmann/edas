@@ -13,7 +13,7 @@ const divError = document.querySelector("#error");
 form.addEventListener("submit", event => {
     event.preventDefault();
 
-    let erro = false;
+    let erro = false
 
     divError.classList.remove("alert", "alert-danger");
     divError.innerHTML = ""
