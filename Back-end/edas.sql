@@ -278,7 +278,7 @@ CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `senha` varchar(255) NOT NULL,
+  `senha_hash` varchar(255) NOT NULL,
   `curso` int(11) NOT NULL,
   `ano` int(11) NOT NULL,
   `turma` int(11) NOT NULL,
