@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import bcrypt from "bcryptjs/dist/bcrypt.js";
+import bcrypt from "bcryptjs";
 
 class Usuario extends Model {
     static init(sequelize) {
@@ -22,14 +22,12 @@ class Usuario extends Model {
                     unique: true,
                 },
 
-                senha_virtual: {
+                senha: {
                     type: DataTypes.VIRTUAL(255),
-                    allowNull: false,
                 }, 
 
-                senha: {
+                senha_hash: {
                     type: DataTypes.STRING(255),
-                    allowNull: false,
                 }, 
 
                 ano: {
@@ -44,16 +42,16 @@ class Usuario extends Model {
         );
 
         this.addHook("beforeSave", async Usuario => {
-            if(Usuario.senha_virtual) {
-                Usuario.senha = await bcrypt.hash(Usuario.senha_virtual, 8);
+            if(Usuario.senha) {
+                Usuario.senha_hash = await bcrypt.hash(Usuario.senha, 8);
             };
         });
 
         return this;
     };
 
-    async checkPassword(senha_virtual){
-        return await bcrypt.compare(senha_virtual, this.senha);
+    async checkPassword(senha){
+        return await bcrypt.compare(senha, this.senha_hash);
     }
 
     static associate(models) {
