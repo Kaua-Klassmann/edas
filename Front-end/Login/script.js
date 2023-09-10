@@ -1,5 +1,4 @@
-// Verificar erros
-import { alertarErro, http, mensagemBotao} from "../exports.js";
+import { alertarErro, http} from "../exports.js";
 
 const form = document.querySelector("form");
 const inputEmail = document.querySelector("#email");
@@ -11,7 +10,7 @@ const divError = document.querySelector("#error");
 form.addEventListener("submit", event => {
     event.preventDefault();
 
-    let erro = false
+    let erro = false;
 
     divError.classList.remove("alert", "alert-danger");
     divError.innerHTML = ""
@@ -22,18 +21,18 @@ form.addEventListener("submit", event => {
     if (!email) {
         divError.append(alertarErro(divError, "Email inválido"));
         erro = true;
-    }
+    };
 
     if (!senha || senha.length < 6) {
         divError.append(alertarErro(divError, "Senha inválida"));
         erro = true;
-    }
+    };
 
     if(!erro){
         const session = {
             email,
             senha
-        }
+        };
     
         async function postSession(){
             await axios.post(`${http}/session`, session)
@@ -41,8 +40,8 @@ form.addEventListener("submit", event => {
                 sessionStorage.setItem("token", response.data.token);
                 window.location.href = "../VisualizarProvas/";
             })
-            .catch(error => divError.append(alertarErro(divError, "Algo está errado!")));
-        }
+            .catch(() => divError.append(alertarErro(divError, "Algo está errado!")));
+        };
 
         postSession();
     }
