@@ -1,7 +1,5 @@
 // Verificar erros
-import { alertarErro, get} from "../exports.js";
-
-const usuarios = await get("usuarios", true, false);
+import { alertarErro, http, mensagemBotao} from "../exports.js";
 
 const form = document.querySelector("form");
 const inputEmail = document.querySelector("#email");
@@ -18,55 +16,34 @@ form.addEventListener("submit", event => {
     divError.classList.remove("alert", "alert-danger");
     divError.innerHTML = ""
 
-    if (!inputEmail.value) {
+    const email = inputEmail.value;
+    const senha = inputSenha.value;
+
+    if (!email) {
         divError.append(alertarErro(divError, "Email inválido"));
         erro = true;
     }
 
-    if (!inputSenha.value || inputSenha.value.length < 6) {
+    if (!senha || senha.length < 6) {
         divError.append(alertarErro(divError, "Senha inválida"));
         erro = true;
     }
 
-    if (!erro) {
-        erro = true;
-
-        for(let user of usuarios){
-            if(inputEmail.value == user.email){
-                erro = false;
-
-                if(inputSenha.value == user.senha){
-                    const config = {
-                        headers: { Authorization: `Bearer ${token}` }
-                    };
-                    
-                    const bodyParameters = {
-                       key: "value"
-                    };
-                    
-                    Axios.post( 
-                      'http://localhost:8000/api/v1/get_token_payloads',
-                      bodyParameters,
-                      config
-                    ).then(console.log).catch(console.log);
-
-                    
-                    const QuinzeMins = 1/24/4;
-
-                    Cookies.set('usuarioID', user.id, { expires: QuinzeMins, path: "/"});
-                    Cookies.set('usuarioCurso', user.curso, { expires: QuinzeMins, path: "/"});
-                    Cookies.set('usuarioAno', user.ano, { expires: QuinzeMins, path: "/"});
-
-                    window.location.href = "../VisualizarProvas/";
-                } else{
-                    divError.append(alertarErro(divError, "Senha incorreta"));
-                }
-                break;
-            }
+    if(!erro){
+        const session = {
+            email,
+            senha
+        }
+    
+        async function postSession(){
+            await axios.post(`${http}/session`, session)
+            .then(response => {
+                sessionStorage.setItem("token", response.data.token);
+                window.location.href = "../VisualizarProvas/";
+            })
+            .catch(error => divError.append(alertarErro(divError, "Algo está errado!")));
         }
 
-        if(erro){
-            divError.append(alertarErro(divError, "Email não encontrado no sistema"));
-        }
-    };
+        postSession();
+    }
 });
