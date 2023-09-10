@@ -14,6 +14,7 @@ routes.get('/curso', CursoController.show);
 routes.get('/cursos', CursoController.index);
 routes.get('/turma', TurmaController.show);
 routes.get('/turmas', TurmaController.index);
+routes.post('/usuario', UsuarioController.store);
 routes.post('/session', SessionController.store);
 
 routes.use(authMiddleware);
@@ -24,6 +25,5 @@ routes.get('/prova', ProvaController.show);
 routes.get('/provas', ProvaController.index);
 routes.post('/prova', ProvaController.store);
 routes.get('/usuarios', UsuarioController.index);
-routes.post('/usuario', UsuarioController.store);
 
 export default routes;
