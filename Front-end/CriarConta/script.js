@@ -20,8 +20,6 @@ colocarNoSelect(turmas, selectTurma);
 // ANO
 
 selectCurso.addEventListener("change", event => {
-  event.preventDefault();
-  
   selectAno.innerHTML = "";
 
   if (selectCurso.value == 1) {
