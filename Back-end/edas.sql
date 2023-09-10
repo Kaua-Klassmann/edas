@@ -31,7 +31,7 @@ USE edas;
 -- Estrutura para tabela `curso`
 --
 
-CREATE TABLE `curso` (
+CREATE TABLE `Curso` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `createdAt` datetime DEFAULT current_timestamp(),
@@ -42,7 +42,7 @@ CREATE TABLE `curso` (
 -- Despejando dados para a tabela `curso`
 --
 
-INSERT INTO `curso` (`id`, `nome`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Curso` (`id`, `nome`, `createdAt`, `updatedAt`) VALUES
 (1, 'Curso Técnico em Administração', '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
 (2, 'Curso Técnico em Informática', '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
 (3, 'Curso Técnico em Meio Ambiente', '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
@@ -54,7 +54,7 @@ INSERT INTO `curso` (`id`, `nome`, `createdAt`, `updatedAt`) VALUES
 -- Estrutura para tabela `disciplina`
 --
 
-CREATE TABLE `disciplina` (
+CREATE TABLE `Disciplina` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `ano` int(11) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE `disciplina` (
 -- Despejando dados para a tabela `disciplina`
 --
 
-INSERT INTO `disciplina` (`id`, `nome`, `ano`, `curso`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Disciplina` (`id`, `nome`, `ano`, `curso`, `createdAt`, `updatedAt`) VALUES
 (1, 'Biologia', 1, 1, '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
 (2, 'Contabilidade', 1, 1, '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
 (3, 'Educação Física', 1, 1, '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
@@ -233,7 +233,7 @@ INSERT INTO `disciplina` (`id`, `nome`, `ano`, `curso`, `createdAt`, `updatedAt`
 -- Estrutura para tabela `prova`
 --
 
-CREATE TABLE `prova` (
+CREATE TABLE `Prova` (
   `id` int(11) NOT NULL,
   `curso` int(11) NOT NULL,
   `ano` int(11) NOT NULL,
@@ -252,7 +252,7 @@ CREATE TABLE `prova` (
 -- Estrutura para tabela `turma`
 --
 
-CREATE TABLE `turma` (
+CREATE TABLE `Turma` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `createdAt` datetime DEFAULT current_timestamp(),
@@ -263,7 +263,7 @@ CREATE TABLE `turma` (
 -- Despejando dados para a tabela `turma`
 --
 
-INSERT INTO `turma` (`id`, `nome`, `createdAt`, `updatedAt`) VALUES
+INSERT INTO `Turma` (`id`, `nome`, `createdAt`, `updatedAt`) VALUES
 (1, 'Sem divisões', '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
 (2, 'Turma A', '2023-07-10 15:07:35', '2023-07-10 15:07:35'),
 (3, 'Turma B', '2023-07-10 15:07:35', '2023-07-10 15:07:35');
@@ -274,7 +274,7 @@ INSERT INTO `turma` (`id`, `nome`, `createdAt`, `updatedAt`) VALUES
 -- Estrutura para tabela `usuario`
 --
 
-CREATE TABLE `usuario` (
+CREATE TABLE `Usuario` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -293,20 +293,20 @@ CREATE TABLE `usuario` (
 --
 -- Índices de tabela `curso`
 --
-ALTER TABLE `curso`
+ALTER TABLE `Curso`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `disciplina`
 --
-ALTER TABLE `disciplina`
+ALTER TABLE `Disciplina`
   ADD PRIMARY KEY (`id`),
   ADD KEY `curso` (`curso`);
 
 --
 -- Índices de tabela `prova`
 --
-ALTER TABLE `prova`
+ALTER TABLE `Prova`
   ADD PRIMARY KEY (`id`),
   ADD KEY `curso` (`curso`),
   ADD KEY `turma` (`turma`),
@@ -316,13 +316,13 @@ ALTER TABLE `prova`
 --
 -- Índices de tabela `turma`
 --
-ALTER TABLE `turma`
+ALTER TABLE `Turma`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `usuario`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `Usuario`
   ADD PRIMARY KEY (`id`),
   ADD KEY `curso` (`curso`),
   ADD KEY `turma` (`turma`);
@@ -334,31 +334,31 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de tabela `curso`
 --
-ALTER TABLE `curso`
+ALTER TABLE `Curso`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `disciplina`
 --
-ALTER TABLE `disciplina`
+ALTER TABLE `Disciplina`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT de tabela `prova`
 --
-ALTER TABLE `prova`
+ALTER TABLE `Prova`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `turma`
 --
-ALTER TABLE `turma`
+ALTER TABLE `Turma`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
-ALTER TABLE `usuario`
+ALTER TABLE `Usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -368,24 +368,24 @@ ALTER TABLE `usuario`
 --
 -- Restrições para tabelas `disciplina`
 --
-ALTER TABLE `disciplina`
-  ADD CONSTRAINT `disciplina_ibfk_1` FOREIGN KEY (`curso`) REFERENCES `curso` (`id`);
+ALTER TABLE `Disciplina`
+  ADD CONSTRAINT `disciplina_ibfk_1` FOREIGN KEY (`Curso`) REFERENCES `Curso` (`id`);
 
 --
 -- Restrições para tabelas `prova`
 --
-ALTER TABLE `prova`
-  ADD CONSTRAINT `prova_ibfk_1` FOREIGN KEY (`curso`) REFERENCES `curso` (`id`),
-  ADD CONSTRAINT `prova_ibfk_2` FOREIGN KEY (`turma`) REFERENCES `turma` (`id`),
-  ADD CONSTRAINT `prova_ibfk_3` FOREIGN KEY (`disciplina`) REFERENCES `disciplina` (`id`),
-  ADD CONSTRAINT `prova_ibfk_4` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`);
+ALTER TABLE `Prova`
+  ADD CONSTRAINT `prova_ibfk_1` FOREIGN KEY (`Curso`) REFERENCES `Curso` (`id`),
+  ADD CONSTRAINT `prova_ibfk_2` FOREIGN KEY (`Turma`) REFERENCES `Turma` (`id`),
+  ADD CONSTRAINT `prova_ibfk_3` FOREIGN KEY (`Disciplina`) REFERENCES `Disciplina` (`id`),
+  ADD CONSTRAINT `prova_ibfk_4` FOREIGN KEY (`Usuario`) REFERENCES `Usuario` (`id`);
 
 --
 -- Restrições para tabelas `usuario`
 --
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`curso`) REFERENCES `curso` (`id`),
-  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`turma`) REFERENCES `turma` (`id`);
+ALTER TABLE `Usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`Curso`) REFERENCES `Curso` (`id`),
+  ADD CONSTRAINT `usuario_ibfk_2` FOREIGN KEY (`Turma`) REFERENCES `Turma` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
