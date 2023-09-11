@@ -14,7 +14,7 @@ if (!token) {
     async function returnGet(router){
         return await axios.get(`${http}/${router}`, config)
         .then(response => response.data)
-        .catch(error => error);
+        .catch(() => mensagemBotao("Desculpe, nosso servidor está fechado no momento!", "OK", "../Login/"));
     }
 
     const provas = await returnGet("provas");
@@ -23,7 +23,7 @@ if (!token) {
     const disciplinas = await returnGet("disciplinas");
     const usuario = await axios.get(`${http}/usuario?id=${id}`, config)
         .then(response => response.data)
-        .catch(error => error);
+        .catch(() => mensagemBotao("Desculpe, nosso servidor está fechado no momento!", "OK", "../Login/"));
 
     const divProvas = document.querySelector("#provas");
 
@@ -208,7 +208,8 @@ if (!token) {
 
     // LOGOFF
 
-    document.querySelector("#btnLogoff").addEventListener("click", () => 
-        sessionStorage.removeItem("token")
-    );
+    document.querySelector("#btnLogoff").addEventListener("click", () => {
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("id");
+    });
 };
