@@ -49,6 +49,32 @@ class UsuarioController {
         });
         return res.json(usuariosReturn);
     };
+
+    async show(req,res) {
+
+        const schema = Yup.object().shape({
+            id: Yup.number().min(1) 
+        });
+
+        if(! (await schema.isValid(req.query))) {
+            return res.status(400).json({error: "Formato inválido."});
+        };
+
+        const { id } = req.query;
+        const usuario = await Usuario.findByPk(id);
+
+        if(!usuario) {
+            return res.status(400).json({error: "Usuario não encontrada"});
+        };
+
+        const { nome, curso, ano, turma } = usuario;
+        return res.json({
+            nome,
+            curso,
+            ano,
+            turma
+        });
+    };
 };
 
 export default new UsuarioController();
