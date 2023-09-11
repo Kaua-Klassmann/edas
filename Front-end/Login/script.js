@@ -38,6 +38,7 @@ form.addEventListener("submit", event => {
             await axios.post(`${http}/session`, session)
             .then(response => {
                 sessionStorage.setItem("token", response.data.token);
+                sessionStorage.setItem("id", response.data.user.id);
                 window.location.href = "../VisualizarProvas/";
             })
             .catch(() => divError.append(alertarErro(divError, "Algo está errado!")));

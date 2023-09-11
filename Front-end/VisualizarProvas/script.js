@@ -1,18 +1,29 @@
 import { get, http, mensagemBotao } from "../exports.js"
 
-const usuarioID = Cookies.get("usuarioID", { path: "/" });
-const usuarioCurso = Cookies.get("usuarioCurso", { path: "/" });
-const usuarioAno = Cookies.get("usuarioAno", { path: "/" });
+const token = sessionStorage.getItem("token");
+const id = sessionStorage.getItem("id");
 
-if (usuarioID == undefined) {
+if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
 
-    const provas = await get("provas");
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+
+    async function returnGet(router){
+        return await axios.get(`${http}/${router}`, config)
+        .then(response => response.data)
+        .catch(error => error);
+    }
+
+    const provas = await returnGet("provas");
     const cursos = await get("cursos");
     const turmas = await get("turmas");
-    const disciplinas = await get("disciplinas");
-    const usuarios = await get("usuarios");
+    const disciplinas = await returnGet("disciplinas");
+    const usuario = await axios.get(`${http}/usuario?id=${id}`, config)
+        .then(response => response.data)
+        .catch(error => error);
 
     const divProvas = document.querySelector("#provas");
 
@@ -35,7 +46,7 @@ if (usuarioID == undefined) {
         let datas = [], horarios = [];
 
         for (let prova of provas){
-            if(prova.curso == usuarioCurso && usuarioAno == prova.ano){
+            if(prova.curso == usuario.curso && usuario.ano == prova.ano){
                 datas.push(prova.dia);
                 horarios.push(prova.horario);
             }
@@ -48,7 +59,7 @@ if (usuarioID == undefined) {
         var disciplinasUsuario = [];
 
         for(let disciplina of disciplinas){
-            if(usuarioCurso == disciplina.curso && usuarioAno == disciplina.ano){
+            if(usuario.curso == disciplina.curso && usuario.ano == disciplina.ano){
                 disciplinasUsuario.push(disciplina);
             }
         }
@@ -56,7 +67,7 @@ if (usuarioID == undefined) {
         for (let data of datas){
             for(let horario of horarios){
                 for (let prova of provas) {
-                    if (usuarioAno == prova.ano && usuarioCurso == prova.curso && prova.dia == data && prova.horario == horario) {
+                    if (usuario.ano == prova.ano && usuario.curso == prova.curso && prova.dia == data && prova.horario == horario) {
                         if (!temProva) {
                             divProvas.innerHTML = "";
         
@@ -168,12 +179,7 @@ if (usuarioID == undefined) {
                     pData.replaceChildren(document.createTextNode(`${dia}/${mes} - ${diaSemana}`));
                     pHorario.replaceChildren(document.createTextNode(prova.horario.slice(0, 5)));
 
-                    for (let usuario of usuarios) {
-                        if (usuario.id == prova.usuario) {
-                            pUsuario.replaceChildren(document.createTextNode(usuario.nome));
-                            break;
-                        }
-                    };
+                    pUsuario.replaceChildren(document.createTextNode(usuario.nome));
                 };
             };
 
@@ -202,9 +208,7 @@ if (usuarioID == undefined) {
 
     // LOGOFF
 
-    document.querySelector("#btnLogoff").addEventListener("click", () => {
-        Cookies.remove("usuarioID", { path: "/" });
-        Cookies.remove("usuarioCurso", { path: "/" });
-        Cookies.remove("usuarioAno", { path: "/" });
-    });
+    document.querySelector("#btnLogoff").addEventListener("click", () => 
+        sessionStorage.removeItem("token")
+    );
 };
