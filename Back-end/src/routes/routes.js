@@ -24,6 +24,7 @@ routes.get('/disciplinas', DisciplinaController.index);
 routes.get('/prova', ProvaController.show);
 routes.get('/provas', ProvaController.index);
 routes.post('/prova', ProvaController.store);
+routes.get('/usuario', UsuarioController.show);
 routes.get('/usuarios', UsuarioController.index);
 
 export default routes;
