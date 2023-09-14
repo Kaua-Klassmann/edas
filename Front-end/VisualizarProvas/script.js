@@ -11,20 +11,18 @@ if (!token) {
         headers: { Authorization: `Bearer ${token}` }
     };
 
-    async function returnGet(router){
-        return await axios.get(`${http}/${router}`, config)
+    async function returnGet(router, query){
+        return await axios.get(`${http}/${router}${query}`, config)
         .then(response => response.data)
         .catch(() => mensagemBotao("Desculpe, nosso servidor está fechado no momento!", "OK", "../Login/"));
     }
 
-    const provas = await returnGet("provas");
+    const provas = await returnGet("provas", "");
     const cursos = await get("cursos");
     const turmas = await get("turmas");
-    const disciplinas = await returnGet("disciplinas");
-    const usuario = await axios.get(`${http}/usuario?id=${id}`, config)
-        .then(response => response.data)
-        .catch(() => mensagemBotao("Desculpe, nosso servidor está fechado no momento!", "OK", "../Login/"));
-
+    const disciplinas = await returnGet("disciplinas", "");
+    const usuario = await returnGet("usuario", `?id=${id}`);
+    
     const divProvas = document.querySelector("#provas");
 
     function criarLinhaTabela(th, nome, atributoScope) {
