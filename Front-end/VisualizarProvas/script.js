@@ -6,7 +6,6 @@ const id = sessionStorage.getItem("id");
 if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
@@ -21,7 +20,7 @@ if (!token) {
     const cursos = await get("cursos");
     const turmas = await get("turmas");
     const disciplinas = await returnGet("disciplinas", "");
-    const usuario = await returnGet("usuario", `?id=${id}`);
+    const usuario = await returnGet("usuario", `?id=${id}`);;
     
     const divProvas = document.querySelector("#provas");
 
@@ -51,7 +50,6 @@ if (!token) {
         }
 
         datas = new Set(datas.sort());
-
         horarios = new Set(horarios.sort());
 
         var disciplinasUsuario = [];
@@ -139,7 +137,7 @@ if (!token) {
     //const btnDeletar = document.querySelector("#btnDeletar");
 
     trs.forEach(tr => {
-        tr.addEventListener("click", () => {
+        tr.addEventListener("click", async () => {
             for (let prova of provas) {
                 if (tr.id == prova.id) {
                     for (let curso of cursos) {
@@ -177,7 +175,15 @@ if (!token) {
                     pData.replaceChildren(document.createTextNode(`${dia}/${mes} - ${diaSemana}`));
                     pHorario.replaceChildren(document.createTextNode(prova.horario.slice(0, 5)));
 
-                    pUsuario.replaceChildren(document.createTextNode(usuario.nome));
+                    async function returnUsuarioProva(id){
+                        return await returnGet("usuario", `?id=${id}`)
+                        .then(response => response.nome)
+                        .catch(() => console.log("sla"))
+                    }
+
+                    const usuarioProva = await returnUsuarioProva(prova.usuario);
+
+                    pUsuario.replaceChildren(document.createTextNode(usuarioProva));
                 };
             };
 
