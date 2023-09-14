@@ -1,21 +1,11 @@
-import { get, http, mensagemBotao } from "../exports.js"
+import { get, returnGet, mensagemBotao } from "../exports.js"
 
-const token = sessionStorage.getItem("token");
 const id = sessionStorage.getItem("id");
 
-if (!token) {
+if (!id) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
-
-    async function returnGet(router, query){
-        return await axios.get(`${http}/${router}${query}`, config)
-        .then(response => response.data)
-        .catch(() => mensagemBotao("Desculpe, nosso servidor está fechado no momento!", "OK", "../Login/"));
-    }
-
+    
     const provas = await returnGet("provas", "");
     const cursos = await get("cursos");
     const turmas = await get("turmas");
