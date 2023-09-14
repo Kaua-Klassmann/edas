@@ -1,15 +1,17 @@
 // Verificar erros
-import { alertarErro, get, colocarNoSelect, mensagemBotao, http, mensagemErro } from "../exports.js";
+import { alertarErro, get, colocarNoSelect, mensagemBotao, http, mensagemErro, returnGet, config } from "../exports.js";
 
-const usuarioID = Cookies.get("usuarioID", { path: "/" });
-const usuarioCurso = Cookies.get("usuarioCurso", { path: "/" });
-const usuarioAno = Cookies.get("usuarioAno", { path: "/" });
+const id = sessionStorage.getItem("id");
 
-if (usuarioID == undefined) {
+if (!id) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
     const turmas = await get("turmas", true, true);
-    const disciplinas = await get("disciplinas");
+    const disciplinas = await returnGet("disciplinas", "");
+    const usuario = await returnGet("usuario", `?id=${id}`);
+
+    const usuarioCurso = usuario.curso;
+    const usuarioAno = usuario.ano;
 
     const form = document.querySelector("form");
     const selectTurma = document.querySelector("#turma");
@@ -61,7 +63,7 @@ if (usuarioID == undefined) {
             const disciplina = parseInt(selectDisciplina.value);
             const dia = inputDia.value;
             const horario = inputHorario.value;
-            const usuario = parseInt(usuarioID)
+            const usuario = parseInt(id)
 
             const prova = {
                 curso,
@@ -75,7 +77,7 @@ if (usuarioID == undefined) {
 
             async function cadastrarProva() {
                 try {
-                    await axios.post(`${http}/prova`, prova);
+                    await axios.post(`${http}/prova`, prova, config);
                     mensagemBotao("Prova cadastrada com sucesso!", "OK", "../VisualizarProvas/");
                 } catch {
                     mensagemErro("Desculpe, ocorreu algum erro durante o cadastro");
@@ -89,8 +91,7 @@ if (usuarioID == undefined) {
     // LOGOFF
 
     document.querySelector("#btnLogoff").addEventListener("click", () => {
-        Cookies.remove("usuarioID", { path: "/" });
-        Cookies.remove("usuarioCurso", { path: "/" });
-        Cookies.remove("usuarioAno", { path: "/" });
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("id");
     });
 };
