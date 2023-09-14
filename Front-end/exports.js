@@ -1,5 +1,9 @@
 export const http = "http://localhost:3000";
 
+export const config = {
+  headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
+};
+
 export async function get(dados, temInput, temSelect) {
   try {
     const response = await axios.get(`${http}/${dados}`);
@@ -25,6 +29,12 @@ export async function get(dados, temInput, temSelect) {
     mensagemErro("Desculpe, nosso servidor está fora do ar no momento!");
   };
 };
+
+export async function returnGet(router, query){
+  return await axios.get(`${http}/${router}${query}`, config)
+  .then(response => response.data)
+  .catch(() => mensagemBotao("Desculpe, nosso servidor está fechado no momento!", "OK", "../Login/"));
+}
 
 export async function colocarNoSelect(dados, select) {
   for (let i of dados) {
