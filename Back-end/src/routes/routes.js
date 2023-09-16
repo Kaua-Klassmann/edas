@@ -20,6 +20,7 @@ routes.post('/session', SessionController.store);
 routes.use(authMiddleware);
 
 routes.get('/disciplina', DisciplinaController.show);
+routes.get('/disciplinasUsuario', DisciplinaController.disciplinasUsuario);
 routes.get('/disciplinas', DisciplinaController.index);
 routes.get('/prova', ProvaController.show);
 routes.get('/provas', ProvaController.index);
