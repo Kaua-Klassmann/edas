@@ -81,6 +81,31 @@ class ProvaController {
             usuario
         });
     };
+
+    async provasUsuario(req,res) {
+
+        const schema = Yup.object().shape({
+            curso: Yup.number().min(1).required(),
+            ano: Yup.number().min(1).required()
+        });
+
+        if(! (await schema.isValid(req.body))) {
+            return res.status(400).json({error: "Formato inválido."});
+        };
+
+        const provas = await Prova.findAll({
+            where: {
+                curso: req.body.curso,
+                ano: req.body.ano
+            }
+        });
+
+        if(!provas) {
+            return res.status(400).json({error: "Prova não encontrada"});
+        };
+
+        return res.json(provas);
+    };
 };
 
 export default new ProvaController();
