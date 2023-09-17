@@ -1,4 +1,4 @@
-import { get, returnGet, mensagemBotao } from "../exports.js"
+import { get, returnGet, mensagemBotao, http, config } from "../exports.js"
 
 const id = sessionStorage.getItem("id");
 
@@ -9,8 +9,25 @@ if (!id) {
     const provas = await returnGet("provas", "");
     const cursos = await get("cursos");
     const turmas = await get("turmas");
+    const usuario = await returnGet("usuario", `?id=${id}`);
     const disciplinas = await returnGet("disciplinas", "");
-    const usuario = await returnGet("usuario", `?id=${id}`);;
+
+    /*
+    const bodyParameters = {
+        curso: usuario.curso
+    };
+
+    async function returnDisciplinasUsuario(){
+        return axios.get( 
+            `${http}/disciplinasUsuario`,
+            bodyParameters,
+            config
+        ).then(response => response).catch(error => error);
+    }
+
+    const disciplinasUsuario = await returnDisciplinasUsuario();
+    console.log(disciplinasUsuario);
+    */
     
     const divProvas = document.querySelector("#provas");
 
@@ -27,6 +44,7 @@ if (!id) {
 
     // COLOCAR PROVAS
 
+    
     if (provas[0]) {
         let temProva = false;
 
@@ -41,14 +59,6 @@ if (!id) {
 
         datas = new Set(datas.sort());
         horarios = new Set(horarios.sort());
-
-        var disciplinasUsuario = [];
-
-        for(let disciplina of disciplinas){
-            if(usuario.curso == disciplina.curso && usuario.ano == disciplina.ano){
-                disciplinasUsuario.push(disciplina);
-            }
-        }
 
         for (let data of datas){
             for(let horario of horarios){
@@ -76,7 +86,7 @@ if (!id) {
                         const tbody = document.createElement("tbody");
                         const tr = document.createElement("tr");
         
-                        for (let disciplina of disciplinasUsuario) {
+                        for (let disciplina of disciplinas) {
                             if (prova.disciplina == disciplina.id) {
                                 tr.append(criarLinhaTabela("td", disciplina.nome, ""))
                             }
@@ -126,6 +136,7 @@ if (!id) {
 
     //const btnDeletar = document.querySelector("#btnDeletar");
 
+    
     trs.forEach(tr => {
         tr.addEventListener("click", async () => {
             for (let prova of provas) {
@@ -193,6 +204,7 @@ if (!id) {
             */
         });
     });
+    
 
     // FECHAR DETALHES
 
