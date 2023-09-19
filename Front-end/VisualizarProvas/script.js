@@ -5,12 +5,9 @@ const id = sessionStorage.getItem("id");
 if (!id) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-    
-    const provas = await returnGet("provas", "");
-    const cursos = await get("cursos");
-    const turmas = await get("turmas");
-    const usuario = await returnGet("usuario", `?id=${id}`);
-    const disciplinas = await returnGet("disciplinas", "");
+    const [provas, cursos, turmas, usuario, disciplinas] =
+        await Promise.all([returnGet("provas", ""), get("cursos"), get("cursos"),
+        returnGet("usuario", `?id=${id}`), returnGet("disciplinas", "")]);
 
     /*
     const bodyParameters = {
@@ -157,7 +154,7 @@ if (!id) {
                         }
                     }
 
-                    for (let disciplina of disciplinasUsuario) {
+                    for (let disciplina of disciplinas) {
                         if (disciplina.id == prova.disciplina) {
                             pDisciplina.replaceChildren(document.createTextNode(disciplina.nome));
                             break;
