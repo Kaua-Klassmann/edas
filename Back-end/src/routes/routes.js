@@ -11,6 +11,7 @@ import authMiddleware from "../middlewares/auth.js";
 const routes = new Router();
 
 routes.get('/curso', CursoController.show);
+routes.get('/cursos', CursoController.index);
 routes.get('/turma', TurmaController.show);
 routes.get('/turmas', TurmaController.index);
 routes.post('/usuario', UsuarioController.store);
