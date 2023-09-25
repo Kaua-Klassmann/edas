@@ -40,11 +40,7 @@ class UsuarioController {
         const usuariosReturn = usuarios.map(e => {
             return {
                 id: e.id,
-                nome: e.nome,
-                email: e.email,
-                ano: e.ano,
-                curso: e.curso,
-                turma: e.turma
+                nome: e.nome
             }
         });
         return res.json(usuariosReturn);

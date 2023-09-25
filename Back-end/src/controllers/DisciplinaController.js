@@ -36,18 +36,9 @@ class DisciplinaController{
     };
 
     async disciplinasUsuario(req,res) {
-        const schema = Yup.object().shape({
-            curso: Yup.number().min(1).required(),
-            ano: Yup.number().min(1).required()
-        });
-
-        if(! (await schema.isValid(req.body))) {
-            return res.status(400).json({error: "Formato inválido."});
-        };
-
         const disciplinas = await Disciplina.findAll({
-            where: {curso: req.body.curso,
-                ano: req.body.ano}
+            where: {curso: req.ucurso,
+                ano: req.uano}
         });
 
         return res.json(disciplinas);

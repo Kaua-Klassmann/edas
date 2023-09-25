@@ -44,13 +44,10 @@ class ProvaController {
         console.log(">>>>", req.body);
 
         const schema = Yup.object().shape({
-            curso: Yup.number().min(1).required(),
-            ano: Yup.number().min(1).required(),
             turma: Yup.number().min(1).required(),
             disciplina: Yup.number().min(1).required(),
             dia: Yup.string().required(),
-            horario: Yup.string().required(),
-            usuario: Yup.number().min(1).required(),
+            horario: Yup.string().required()
         });
 
         if(! (await schema.isValid(req.body))) {
@@ -69,7 +66,17 @@ class ProvaController {
             return res.status(400).json({error: "A prova já está cadastrada."});
         }*/
 
-        const { id, curso, ano, turma, disciplina, dia, horario, usuario } = await Prova.create(req.body);
+        const body = {
+            curso: req.ucurso,
+            ano: req.uano,
+            turma: req.body.turma,
+            disciplina: req.body.disciplina,
+            dia: req.body.dia,
+            horario: req.body.horario,
+            usuario: req.uid
+        }
+
+        const { id, curso, ano, turma, disciplina, dia, horario, usuario } = await Prova.create(body);
         return res.json({
             id,
             curso,
@@ -84,19 +91,10 @@ class ProvaController {
 
     async provasUsuario(req,res) {
 
-        const schema = Yup.object().shape({
-            curso: Yup.number().min(1).required(),
-            ano: Yup.number().min(1).required()
-        });
-
-        if(! (await schema.isValid(req.body))) {
-            return res.status(400).json({error: "Formato inválido."});
-        };
-
         const provas = await Prova.findAll({
             where: {
-                curso: req.body.curso,
-                ano: req.body.ano
+                curso: req.ucurso,
+                ano: req.uano
             }
         });
 
