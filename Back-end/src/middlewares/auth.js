@@ -14,6 +14,8 @@ export default async (req, res, next) => {
     try {
         const decoded = await jwt.verify(token, authConfig.secret);
         req.uid = decoded.id;
+        req.ucurso = decoded.curso;
+        req.uano = decoded.ano;
         return next();
 
     } catch (error) {
