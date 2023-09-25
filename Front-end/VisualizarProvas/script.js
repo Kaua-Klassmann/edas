@@ -156,7 +156,7 @@ if (!token) {
                     pHorario.replaceChildren(document.createTextNode(prova.horario.slice(0, 5)));
 
                     async function returnUsuarioProva(id){
-                        return await returnGet("usuarioID", `?id=${id}`)
+                        return await returnGet("usuario", `?id=${id}`)
                         .then(response => response.nome)
                         .catch(() => console.log("sla"))
                     }
