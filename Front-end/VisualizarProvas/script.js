@@ -6,25 +6,8 @@ if (!id) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
     const [provas, cursos, turmas, usuario, disciplinas] =
-        await Promise.all([returnGet("provas", ""), get("cursos"), get("cursos"),
-        returnGet("usuario", `?id=${id}`), returnGet("disciplinas", "")]);
-
-    /*
-    const bodyParameters = {
-        curso: usuario.curso
-    };
-
-    async function returnDisciplinasUsuario(){
-        return axios.get( 
-            `${http}/disciplinasUsuario`,
-            bodyParameters,
-            config
-        ).then(response => response).catch(error => error);
-    }
-
-    const disciplinasUsuario = await returnDisciplinasUsuario();
-    console.log(disciplinasUsuario);
-    */
+        await Promise.all([returnGet("provasUsuario", ""), get("cursos"), get("cursos"),
+        returnGet("usuario", `?id=${id}`), returnGet("disciplinasUsuario", "")]);
     
     const divProvas = document.querySelector("#provas");
 
@@ -48,10 +31,8 @@ if (!id) {
         let datas = [], horarios = [];
 
         for (let prova of provas){
-            if(prova.curso == usuario.curso && usuario.ano == prova.ano){
-                datas.push(prova.dia);
-                horarios.push(prova.horario);
-            }
+            datas.push(prova.dia);
+            horarios.push(prova.horario);
         }
 
         datas = new Set(datas.sort());
@@ -60,7 +41,7 @@ if (!id) {
         for (let data of datas){
             for(let horario of horarios){
                 for (let prova of provas) {
-                    if (usuario.ano == prova.ano && usuario.curso == prova.curso && prova.dia == data && prova.horario == horario) {
+                    if (prova.dia == data && prova.horario == horario) {
                         if (!temProva) {
                             divProvas.innerHTML = "";
         

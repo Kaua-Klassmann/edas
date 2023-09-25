@@ -7,7 +7,7 @@ if (!id) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
     const turmas = await get("turmas", true, true);
-    const disciplinas = await returnGet("disciplinas", "");
+    const disciplinas = await returnGet("disciplinasUsuario", "");
     const usuario = await returnGet("usuario", `?id=${id}`);
 
     const usuarioCurso = usuario.curso;
@@ -24,15 +24,7 @@ if (!id) {
 
     // COLOCAR DISCIPLINAS
 
-    function colocarDisciplinas() {
-        const disciplinasPossiveis = disciplinas.filter(
-            disciplina => disciplina.curso == usuarioCurso && disciplina.ano == usuarioAno
-        );
-
-        colocarNoSelect(disciplinasPossiveis, selectDisciplina);
-    };
-
-    colocarDisciplinas();
+    colocarNoSelect(disciplinas, selectDisciplina);
 
     // INSERIR PROVA
 
