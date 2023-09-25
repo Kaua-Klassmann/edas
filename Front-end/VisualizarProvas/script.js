@@ -1,13 +1,13 @@
 import { get, returnGet, mensagemBotao, http, config } from "../exports.js"
 
-const id = sessionStorage.getItem("id");
+const token = sessionStorage.getItem("token");
 
-if (!id) {
+if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-    const [provas, cursos, turmas, usuario, disciplinas] =
-        await Promise.all([returnGet("provasUsuario", ""), get("cursos"), get("cursos"),
-        returnGet("usuario", `?id=${id}`), returnGet("disciplinasUsuario", "")]);
+    const [provas, cursos, turmas, disciplinas] =
+        await Promise.all([returnGet("provasUsuario", ""), get("cursos"), get("turmas"),
+        returnGet("disciplinasUsuario", "")]);
     
     const divProvas = document.querySelector("#provas");
 
@@ -73,6 +73,7 @@ if (!id) {
                         for(let turma of turmas){
                             if(turma.id == prova.turma){
                                 tr.append(criarLinhaTabela("td", turma.nome, ""))
+                                break;
                             }
                         }
     
@@ -194,6 +195,5 @@ if (!id) {
 
     document.querySelector("#btnLogoff").addEventListener("click", () => {
         sessionStorage.removeItem("token");
-        sessionStorage.removeItem("id");
     });
 };
