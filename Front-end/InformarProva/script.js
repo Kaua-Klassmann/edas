@@ -8,10 +8,6 @@ if (!token) {
 } else {
     const turmas = await get("turmas", true, true);
     const disciplinas = await returnGet("disciplinasUsuario", "");
-    const usuario = await returnGet("usuario", ``);
-
-    const usuarioCurso = usuario.curso;
-    const usuarioAno = usuario.ano;
 
     const form = document.querySelector("form");
     const selectTurma = document.querySelector("#turma");

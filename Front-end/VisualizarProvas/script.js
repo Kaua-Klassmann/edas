@@ -1,4 +1,4 @@
-import { get, returnGet, mensagemBotao, http, config } from "../exports.js"
+import { get, returnGet, mensagemBotao } from "../exports.js"
 
 const token = sessionStorage.getItem("token");
 
@@ -6,8 +6,8 @@ if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
     const [provas, cursos, turmas, disciplinas] =
-        await Promise.all([returnGet("provasUsuario", ""), get("cursos"), get("turmas"),
-        returnGet("disciplinasUsuario", "")]);
+        await Promise.all([returnGet("provasUsuario", ""), get("cursos"),
+        get("turmas"), returnGet("disciplinasUsuario", "")]);
     
     const divProvas = document.querySelector("#provas");
 
