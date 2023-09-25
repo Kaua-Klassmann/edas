@@ -1,14 +1,14 @@
 // Verificar erros
 import { alertarErro, get, colocarNoSelect, mensagemBotao, http, mensagemErro, returnGet, config } from "../exports.js";
 
-const id = sessionStorage.getItem("id");
+const token = sessionStorage.getItem("token");
 
-if (!id) {
+if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
     const turmas = await get("turmas", true, true);
     const disciplinas = await returnGet("disciplinasUsuario", "");
-    const usuario = await returnGet("usuario", `?id=${id}`);
+    const usuario = await returnGet("usuario", ``);
 
     const usuarioCurso = usuario.curso;
     const usuarioAno = usuario.ano;
@@ -49,22 +49,16 @@ if (!id) {
         // CADASTRAR PROVA
 
         if (!erro) {
-            const curso = parseInt(usuarioCurso);
-            const ano = parseInt(usuarioAno);
             const turma = parseInt(selectTurma.value);
             const disciplina = parseInt(selectDisciplina.value);
             const dia = inputDia.value;
             const horario = inputHorario.value;
-            const usuario = parseInt(id)
 
             const prova = {
-                curso,
-                ano,
                 turma,
                 disciplina,
                 dia,
-                horario,
-                usuario
+                horario
             }
 
             async function cadastrarProva() {
@@ -84,6 +78,5 @@ if (!id) {
 
     document.querySelector("#btnLogoff").addEventListener("click", () => {
         sessionStorage.removeItem("token");
-        sessionStorage.removeItem("id");
     });
 };
