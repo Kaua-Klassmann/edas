@@ -6,15 +6,7 @@ class CursoController {
 
     async show(req,res) {
 
-        const schema = Yup.object().shape({
-            id: Yup.number().min(1)
-        });
-
-        if(! (await schema.isValid(req.query))) {
-            return res.status(400).json({error: "Formato inválido."});
-        };
-
-        const { id } = req.query;
+        const id = req.uid;
         const curso = await Curso.findByPk(id);
 
         if(!curso) {

@@ -46,7 +46,7 @@ class UsuarioController {
         return res.json(usuariosReturn);
     };
 
-    async showID(req,res) {
+    async show(req,res) {
 
         const schema = Yup.object().shape({
             id: Yup.number().min(1) 
@@ -72,14 +72,7 @@ class UsuarioController {
         });
     };
 
-    async show(req,res){
-        const curso = req.ucurso;
-        const ano = req.uano;
-        return res.json({
-            curso,
-            ano
-        });
-    }
+    
 };
 
 export default new UsuarioController();
