@@ -33,7 +33,7 @@ export async function get(dados, temInput, temSelect) {
 export async function returnGet(router, query){
   return await axios.get(`${http}/${router}${query}`, config)
   .then(response => response.data)
-  .catch(() => mensagemBotao("Desculpe, nosso servidor está fechado no momento!", "OK", "../Login/"));
+  .catch(() => mensagemErro("Desculpe, nosso servidor está fechado no momento!"));
 }
 
 export async function colocarNoSelect(dados, select) {
