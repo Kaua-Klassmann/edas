@@ -62,9 +62,13 @@ if (!token) {
                 .then(() => {
                     mensagemBotao("Prova cadastrada com sucesso!", "OK", "../VisualizarProvas/");
                 }).catch((res) => {
-                    if(res.response.status == 400){
-                        mensagemBotao("Prova já cadastrada!", "OK", "../InformarProva/");
-                    } else{
+                    try{
+                        if(res.response.status == 400){
+                            mensagemBotao("Prova já cadastrada!", "OK", "../InformarProva/");
+                        } else{
+                            mensagemErro("Desculpe, ocorreu algum erro durante o cadastro");
+                        }
+                    } catch{
                         mensagemErro("Desculpe, ocorreu algum erro durante o cadastro");
                     }
                 });
