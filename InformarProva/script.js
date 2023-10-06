@@ -58,13 +58,17 @@ if (!token) {
             }
 
             async function cadastrarProva() {
-                try {
-                    await axios.post(`${http}/prova`, prova, config);
+                await axios.post(`${http}/prova`, prova, config)
+                .then(() => {
                     mensagemBotao("Prova cadastrada com sucesso!", "OK", "../VisualizarProvas/");
-                } catch {
-                    mensagemErro("Desculpe, ocorreu algum erro durante o cadastro");
-                }
-            }
+                }).catch((res) => {
+                    if(res.response.status == 400){
+                        mensagemBotao("Prova já cadastrada!", "OK", "../InformarProva/");
+                    } else{
+                        mensagemErro("Desculpe, ocorreu algum erro durante o cadastro");
+                    }
+                });
+            };
 
             cadastrarProva();
         };
