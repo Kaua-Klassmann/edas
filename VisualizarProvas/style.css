@@ -23,14 +23,12 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border: 1px solid black;
 }
 
 ul {
+    
     list-style: none;
-}
-
-.primeiroUl {
-    padding-top: 5px;
 }
 
 .alinharUsuario {
@@ -58,5 +56,9 @@ ul {
 
     #btnFechar {
         margin-right: 5%;
+    }    
+
+    li{
+        max-height: 10vh;
     }
 }
