@@ -11,6 +11,7 @@ form.addEventListener("submit", event => {
     event.preventDefault();
 
     let erro = false;
+    let testarEmail = true;
 
     divError.classList.remove("alert", "alert-danger");
     divError.innerHTML = ""
@@ -21,7 +22,13 @@ form.addEventListener("submit", event => {
     if (!email) {
         divError.append(alertarErro(divError, "Email inválido"));
         erro = true;
+        testarEmail = false;
     };
+
+    if(testarEmail && email.split("@")[1] != "aluno.feliz.ifrs.edu.br"){
+        divError.append(alertarErro(divError, "Email não corresponde a instuição"));
+        erro = true;
+    }
 
     if (!senha || senha.length < 6) {
         divError.append(alertarErro(divError, "Senha inválida"));
@@ -40,7 +47,13 @@ form.addEventListener("submit", event => {
                 sessionStorage.setItem("token", response.data.token);
                 window.location.href = "../VisualizarProvas/";
             })
-            .catch(() => divError.append(alertarErro(divError, "Algo está errado!")));
+            .catch((error) => {
+                if(error.response.status == "401"){
+                    divError.append(alertarErro(divError, "Senha incorreta!"))
+                } else{
+                    divError.append(alertarErro(divError, "Algo está errado!"))
+                }
+            });
         };
 
         postSession();

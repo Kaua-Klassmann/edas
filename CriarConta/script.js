@@ -47,6 +47,7 @@ form.addEventListener("submit", event => {
   event.preventDefault();
 
   let erro = false;
+  let testarEmail = true;
 
   divError.classList.remove("alert", "alert-danger");
   divError.innerHTML = "";
@@ -63,7 +64,13 @@ form.addEventListener("submit", event => {
   if (!email) {
     divError.append(alertarErro(divError, "Email inválido"));
     erro = true;
+    testarEmail = false;
   };
+
+  if(testarEmail && email.split("@")[1] != "aluno.feliz.ifrs.edu.br"){
+    divError.append(alertarErro(divError, "Email não corresponde a instuição"));
+    erro = true;
+  }
 
   if (!senha || senha.length < 6) {
     divError.append(alertarErro(divError, "Senha inválida"));
@@ -84,12 +91,14 @@ form.addEventListener("submit", event => {
     for (let c of cursos) {
       if (c.id == selectCurso.value) {
         curso = parseInt(c.id);
+        break;
       };
     };
 
     for (let t of turmas) {
       if (t.id == selectTurma.value) {
         turma = parseInt(t.id);
+        break;
       };
     };
 
