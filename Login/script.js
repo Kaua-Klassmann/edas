@@ -1,5 +1,10 @@
 import { alertarErro, http} from "../exports.js";
 
+// LIGAR BACKEND
+axios.get(`${http}/turmas`)
+.then(() => 0=0)
+.catch(() => 0=0);
+
 const form = document.querySelector("form");
 const inputEmail = document.querySelector("#email");
 const inputSenha = document.querySelector("#senha");
