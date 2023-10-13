@@ -1,9 +1,7 @@
-import { alertarErro, http} from "../exports.js";
+import { alertarErro, get, http} from "../exports.js";
 
 // LIGAR BACKEND
-axios.get(`${http}/turmas`)
-.then(() => 0=0)
-.catch(() => 0=0);
+const ligar = get("turmas");
 
 const form = document.querySelector("form");
 const inputEmail = document.querySelector("#email");
