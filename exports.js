@@ -1,4 +1,4 @@
-export const http = "https://edas-backend.onrender.com";
+export const http = process.env.DB_LINK;
 
 export const config = {
   headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
