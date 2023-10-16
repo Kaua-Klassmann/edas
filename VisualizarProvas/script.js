@@ -105,8 +105,6 @@ if (!token) {
 
     const trs = document.querySelectorAll(".tr");
     const detalhes = document.querySelector("#detalhes");
-    const pCurso = document.querySelector("#pCurso");
-    const pAno = document.querySelector("#pAno");
     const pTurma = document.querySelector("#pTurma");
     const pDisciplina = document.querySelector("#pDisciplina");
     const pData = document.querySelector("#pData");
@@ -120,25 +118,16 @@ if (!token) {
         tr.addEventListener("click", async () => {
             for (let prova of provas) {
                 if (tr.id == prova.id) {
-                    for (let curso of cursos) {
-                        if (curso.id == prova.curso) {
-                            pCurso.replaceChildren(document.createTextNode(curso.nome));
+                    for (let disciplina of disciplinas) {
+                        if (disciplina.id == prova.disciplina) {
+                            pDisciplina.replaceChildren(document.createTextNode(disciplina.nome));
                             break;
                         }
                     }
-
-                    pAno.replaceChildren(document.createTextNode(`${prova.ano}°Ano`));
 
                     for (let turma of turmas) {
                         if (turma.id == prova.turma) {
                             pTurma.replaceChildren(document.createTextNode(turma.nome));
-                            break;
-                        }
-                    }
-
-                    for (let disciplina of disciplinas) {
-                        if (disciplina.id == prova.disciplina) {
-                            pDisciplina.replaceChildren(document.createTextNode(disciplina.nome));
                             break;
                         }
                     }
