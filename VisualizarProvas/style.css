@@ -27,7 +27,6 @@ main {
 }
 
 ul {
-    
     list-style: none;
 }
 
@@ -51,7 +50,7 @@ ul {
 
 @media (max-width: 600px) {
     .detalhes {
-        width: 100vw;
+        width: 99vw;
     }
 
     #btnFechar {
