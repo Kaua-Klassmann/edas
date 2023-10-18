@@ -1,10 +1,5 @@
 import { alertarErro, http} from "../exports.js";
 
-// LIGAR BACKEND
-const ligar = await axios.get(`${http}/turmas`)
-.then(response => response)
-.catch(error => error);
-
 const form = document.querySelector("form");
 const inputEmail = document.querySelector("#email");
 const inputSenha = document.querySelector("#senha");
