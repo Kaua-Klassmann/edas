@@ -1,5 +1,5 @@
 // Verificar erros
-import { alertarErro, mensagemBotao, get, http, colocarNoSelect } from "../exports.js";
+import { alertarErro, mensagemBotao, get, http, colocarNoSelect, mensagemErro } from "../exports.js";
 
 const cursos = await get("cursos", true, true);
 const turmas = await get("turmas");
@@ -112,12 +112,17 @@ form.addEventListener("submit", event => {
     };
 
     async function criarUsuario() {
-      try {
-        await axios.post(`${http}/usuario`, usuario);
+      await axios.post(`${http}/usuario`, usuario)
+      .then(() => {
         mensagemBotao("Conta criada com sucesso!", "OK", "../Login/");
-      } catch {
-        divError.append(alertarErro(divError, "Email já está sendo utilizado"));
-      };
+      })
+      .cacth(error => {
+        if(error.response.status == "422"){
+          divError.append(alertarErro(divError, "Email inválido!"))
+      } else{
+          divError.append(alertarErro(divError, "O email já está cadastrado!"))
+      }
+      });
     };
     
     criarUsuario();
