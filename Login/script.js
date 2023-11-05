@@ -48,8 +48,10 @@ form.addEventListener("submit", event => {
                 window.location.href = "../VisualizarProvas/";
             })
             .catch((error) => {
-                if(error.response.status == "401"){
+                if(error.response.status == "402"){
                     divError.append(alertarErro(divError, "Senha incorreta!"))
+                } else if(error.response.status == "401"){
+                    divError.append(alertarErro(divError, "Conta não ativada!"))
                 } else{
                     divError.append(alertarErro(divError, "Algo está errado!"))
                 }
