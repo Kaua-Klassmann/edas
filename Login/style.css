@@ -14,7 +14,7 @@ main {
 
 .box {
   background-color: #f1f1f1;
-  width: 350px;
+  width: 30vw;
 }
 
 .form-control {
@@ -46,4 +46,10 @@ form a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px){
+  .box {
+    width: 80vw;
+  }
 }
