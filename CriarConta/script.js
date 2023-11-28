@@ -114,7 +114,7 @@ form.addEventListener("submit", event => {
     async function criarUsuario() {
       await axios.post(`${http}/usuario`, usuario)
       .then(() => {
-        mensagemBotao("Conta criada com sucesso!", "OK", "../Login/");
+        mensagemBotao("Ative a conta pelo email!", "OK", "../Login/");
       })
       .cacth(error => {
         if(error.response.status == "422"){
