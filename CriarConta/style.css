@@ -29,7 +29,6 @@ form input, form select {
 }
 
 .div-botao {
-  
   display: grid;
   place-items: center;
 }
@@ -48,6 +47,6 @@ form input, form select {
 
 @media (max-width: 768px) {
     .box {
-        max-width: 98vw;
+        width: 80vw;
     }
 }
