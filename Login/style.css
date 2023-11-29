@@ -14,7 +14,8 @@ main {
 
 .box {
   background-color: #f1f1f1;
-  width: 30vw;
+  min-width: 20vw;
+  max-width: 30vw;
 }
 
 .form-control {
@@ -51,5 +52,6 @@ form a {
 @media (max-width: 768px){
   .box {
     width: 70vw;
+    max-width: 70vw;
   }
 }
