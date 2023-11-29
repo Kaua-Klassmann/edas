@@ -23,7 +23,6 @@ if (!token) {
     }
 
     // COLOCAR PROVAS
-
     
     if (provas[0]) {
         let temProva = false;
@@ -90,16 +89,7 @@ if (!token) {
                 }
             }
         }
-    }/* else {
-        divProvas.innerHTML = "";
-
-        const p = document.createElement("p");
-        p.classList.add("text-center");
-        const text = document.createTextNode("Nenhuma prova inserida no sistema");
-        p.append(text);
-
-        divProvas.append(p);
-    }*/
+    }
 
     // ABRIR DETALHES
 
@@ -112,7 +102,6 @@ if (!token) {
     const pUsuario = document.querySelector("#pUsuario");
 
     //const btnDeletar = document.querySelector("#btnDeletar");
-
     
     trs.forEach(tr => {
         tr.addEventListener("click", async () => {
@@ -165,9 +154,6 @@ if (!token) {
                 }
     
                 deletarProva();
-    
-                tr.remove();
-                detalhes.style.display = "none";
             });
             */
         });
