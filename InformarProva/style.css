@@ -1,10 +1,12 @@
+body {
+    background: linear-gradient(45deg, #21d4fd 0%, #b721ff 100%);
+}
+
 nav {
     height: 7vh;
-    border-bottom: 1px solid #000000;
 }
 
 main {
-    background: linear-gradient(to right bottom, white, lightgreen, green, blue);
     height: 93vh;
     display: grid;
     place-items: center;
