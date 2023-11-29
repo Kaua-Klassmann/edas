@@ -5,8 +5,8 @@ const token = sessionStorage.getItem("token");
 if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-    const [provas, cursos, turmas, disciplinas] =
-        await Promise.all([returnGet("provasUsuario", ""), get("cursos"),
+    const [provas, turmas, disciplinas] =
+        await Promise.all([returnGet("provasUsuario", ""),
         get("turmas"), returnGet("disciplinasUsuario", "")]);
     
     const divProvas = document.querySelector("#provas");
