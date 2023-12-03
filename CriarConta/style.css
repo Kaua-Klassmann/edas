@@ -21,10 +21,7 @@ form {
 }
 
 .form-control, .form-select {
-    background-color: #e1e1e1;
-}
-
-form input, form select {
+  background-color: #e1e1e1;
   margin-bottom: 9px;
 }
 

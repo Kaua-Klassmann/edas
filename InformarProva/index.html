@@ -24,27 +24,27 @@
         <a class="p-3 nav-link ms-auto me-2" id="btnLogoff" href="../Login/">Logoff</a>
     </nav>
     <main>
-        <div class="box px-3 bg-light rounded-3">
-            <h1 class="py-2 text-center">Registrar prova</h1>
-            <form class="px-3">
+        <div class="box p-3 bg-light rounded-3">
+            <h1 class="text-center">Registrar prova</h1>
+            <form class="m-3">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="disciplina" class="form-label">Disciplina: </label>
-                        <select class="form-select" id="disciplina" disabled></select>
+                        <label for="disciplina" class="form-label px-2">Disciplina</label>
+                        <select class="form-select rounded-4" id="disciplina" disabled></select>
                     </div>
                     <div class="col-md-6">
-                        <label for="turma" class="form-label">Turma: </label>
-                        <select id="turma" class="form-select" disabled></select>
+                        <label for="turma" class="form-label px-2">Turma</label>
+                        <select id="turma" class="form-select rounded-4" disabled></select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="form-label" for="data">Data: </label>
-                        <input class="form-control" type="date" id="dia" disabled>
+                        <label class="form-label px-2" for="dia">Data</label>
+                        <input class="form-control rounded-4" type="date" id="dia" disabled>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label" for="horario">Horário: </label>
-                        <select class="form-select" id="horario" disabled>
+                        <label class="form-label px-2" for="horario">Horário</label>
+                        <select class="form-select rounded-4" id="horario" disabled>
                             <option value="07:30">07:30</option>
                             <option value="08:20">08:20</option>
                             <option value="09:10">09:10</option>
@@ -58,8 +58,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="div-botao my-4">
-                    <input class="botao text-center" type="submit" value="Confirmar" disabled>
+                <div class="div-botao p-3 mt-2">
+                    <input class="botao btn text-bg-dark rounded-4" type="submit" value="Confirmar" disabled>
                 </div>
                 <div id="error" role="alert"></div>
             </form>
