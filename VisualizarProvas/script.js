@@ -1,4 +1,4 @@
-import { get, returnGet, mensagemBotao } from "../exports.js"
+import { get, returnGet, mensagemBotao, http, config } from "../exports.js"
 
 const token = sessionStorage.getItem("token");
 
@@ -101,12 +101,15 @@ if (!token) {
     const pHorario = document.querySelector("#pHorario");
     const pUsuario = document.querySelector("#pUsuario");
 
-    //const btnDeletar = document.querySelector("#btnDeletar");
+    const btnDeletar = document.querySelector("#btnDeletar");
     
     trs.forEach(tr => {
         tr.addEventListener("click", async () => {
+            let idProva;
             for (let prova of provas) {
                 if (tr.id == prova.id) {
+                    idProva = prova.id;
+
                     for (let disciplina of disciplinas) {
                         if (disciplina.id == prova.disciplina) {
                             pDisciplina.replaceChildren(document.createTextNode(disciplina.nome));
@@ -145,17 +148,16 @@ if (!token) {
                 };
             };
 
-            detalhes.style.display = "block";
-
-            /*
             btnDeletar.addEventListener("click", () => {
                 async function deletarProva(){
-                    await axios.delete(`${http}/prova/${tr.id}`);
+                    await axios.delete(`${http}/prova?id=${idProva}`, config);
+                    location.reload();
                 }
-    
+
                 deletarProva();
             });
-            */
+
+            detalhes.style.display = "block";
         });
     });
     
