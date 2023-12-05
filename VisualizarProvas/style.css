@@ -48,13 +48,19 @@ ul {
     transform: translate(-50%, -50%);
 }
 
+@media (max-width: 600px) {
+    #btnFechar {
+        margin-right: 3vw;
+    }
+}
+
 @media (max-width: 768px) {
     .detalhes {
         width: 99vw;
     }
 
     #btnFechar {
-        margin-right: 5%;
+        margin-right: 5vw;
     }
 
     li{
