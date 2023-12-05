@@ -54,8 +54,8 @@ ul {
     }
 
     #btnFechar {
-        margin-right: 5%;
-    }    
+        margin-right: 0;
+    }
 
     li{
         max-height: 10vh;
