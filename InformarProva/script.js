@@ -6,8 +6,9 @@ const token = sessionStorage.getItem("token");
 if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-    const turmas = await get("turmas", true, true);
-    const disciplinas = await returnGet("disciplinasUsuario", "");
+    const [turmas, disciplinas] =
+        await Promise.all([get("turmas", true, true),
+        returnGet("disciplinasUsuario", "")]);
 
     const form = document.querySelector("form");
     const selectTurma = document.querySelector("#turma");

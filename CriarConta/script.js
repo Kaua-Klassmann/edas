@@ -1,8 +1,9 @@
 // Verificar erros
-import { alertarErro, mensagemBotao, get, http, colocarNoSelect, mensagemErro } from "../exports.js";
+import { alertarErro, mensagemBotao, get, http, colocarNoSelect } from "../exports.js";
 
-const cursos = await get("cursos", true, true);
-const turmas = await get("turmas");
+const [cursos, turmas] =
+        await Promise.all([get("cursos", true, true),
+        get("turmas")]);
 
 const form = document.querySelector("form");
 const inputNome = document.querySelector("#nome");

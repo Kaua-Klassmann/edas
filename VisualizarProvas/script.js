@@ -139,7 +139,7 @@ if (!token) {
                     async function returnUsuarioProva(id){
                         return await returnGet("usuario", `?id=${id}`)
                         .then(response => response.nome)
-                        .catch(() => console.log("sla"))
+                        .catch(() => console.log())
                     }
 
                     const usuarioProva = await returnUsuarioProva(prova.usuario);
