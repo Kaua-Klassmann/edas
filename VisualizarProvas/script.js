@@ -1,30 +1,30 @@
-import { get, returnGet, mensagemBotao, http, config } from "../exports.js"
+import { returnGet, mensagemBotao, http, config } from "../exports.js"
 
 const token = sessionStorage.getItem("token");
 
 if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-    const [provas, turmas, disciplinas] =
-        await Promise.all([returnGet("provasUsuario", ""),
-        get("turmas"), returnGet("disciplinasUsuario", "")]);
+    const provas = await returnGet("provasUsuario", "")
+    
+    document.querySelector(".alinharLoading").style.display = "none";
     
     const divProvas = document.querySelector("#provas");
-
-    function criarLinhaTabela(th, nome, atributoScope) {
-        const t = document.createElement(th);
-        const text = document.createTextNode(nome)
-        t.append(text);
-        t.scope = atributoScope;
-
-        t.classList.add("px-3");
-
-        return t;
-    }
 
     // COLOCAR PROVAS
     
     if (provas[0]) {
+        function criarLinhaTabela(th, nome, atributoScope) {
+            const t = document.createElement(th);
+            const text = document.createTextNode(nome)
+            t.append(text);
+            t.scope = atributoScope;
+    
+            t.classList.add("px-3");
+    
+            return t;
+        }
+
         let temProva = false;
 
         let datas = [], horarios = [];
@@ -63,18 +63,9 @@ if (!token) {
                         const tbody = document.createElement("tbody");
                         const tr = document.createElement("tr");
         
-                        for (let disciplina of disciplinas) {
-                            if (prova.disciplina == disciplina.id) {
-                                tr.append(criarLinhaTabela("td", disciplina.nome, ""))
-                            }
-                        }
+                        tr.append(criarLinhaTabela("td", prova.disciplina.nome, ""))
         
-                        for(let turma of turmas){
-                            if(turma.id == prova.turma){
-                                tr.append(criarLinhaTabela("td", turma.nome, ""))
-                                break;
-                            }
-                        }
+                        tr.append(criarLinhaTabela("td", prova.turma.nome, ""))
     
                         const mes = prova.dia.slice(5, 7);
                         const dia = prova.dia.slice(8,)
@@ -110,19 +101,9 @@ if (!token) {
                 if (tr.id == prova.id) {
                     idProva = prova.id;
 
-                    for (let disciplina of disciplinas) {
-                        if (disciplina.id == prova.disciplina) {
-                            pDisciplina.replaceChildren(document.createTextNode(disciplina.nome));
-                            break;
-                        }
-                    }
+                    pDisciplina.replaceChildren(document.createTextNode(prova.disciplina.nome));
 
-                    for (let turma of turmas) {
-                        if (turma.id == prova.turma) {
-                            pTurma.replaceChildren(document.createTextNode(turma.nome));
-                            break;
-                        }
-                    }
+                    pTurma.replaceChildren(document.createTextNode(prova.turma.nome));
 
                     const mes = prova.dia.slice(5, 7);
                     const dia = prova.dia.slice(8,)
@@ -136,15 +117,7 @@ if (!token) {
                     pData.replaceChildren(document.createTextNode(`${dia}/${mes} - ${diaSemana}`));
                     pHorario.replaceChildren(document.createTextNode(prova.horario.slice(0, 5)));
 
-                    async function returnUsuarioProva(id){
-                        return await returnGet("usuario", `?id=${id}`)
-                        .then(response => response.nome)
-                        .catch(() => console.log())
-                    }
-
-                    const usuarioProva = await returnUsuarioProva(prova.usuario);
-
-                    pUsuario.replaceChildren(document.createTextNode(usuarioProva));
+                    pUsuario.replaceChildren(document.createTextNode(prova.usuario.nome));
                 };
             };
 
