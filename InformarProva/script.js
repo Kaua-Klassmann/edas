@@ -1,5 +1,5 @@
 // Verificar erros
-import { alertarErro, get, colocarNoSelect, mensagemBotao, http, mensagemErro, returnGet, config } from "../exports.js";
+import { alertarErro, get, colocarNoSelect, mensagemBotao, link, mensagemErro, returnGet, config } from "../exports.js";
 
 const token = sessionStorage.getItem("token");
 
@@ -59,7 +59,7 @@ if (!token) {
             }
 
             async function cadastrarProva() {
-                await axios.post(`${http}/prova`, prova, config)
+                await axios.post(`${link}/prova`, prova, config)
                 .then(() => {
                     mensagemBotao("Prova cadastrada com sucesso!", "OK", "../VisualizarProvas/");
                 }).catch((res) => {

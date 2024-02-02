@@ -1,5 +1,5 @@
 // Verificar erros
-import { alertarErro, mensagemBotao, get, http, colocarNoSelect } from "../exports.js";
+import { alertarErro, mensagemBotao, get, link, colocarNoSelect } from "../exports.js";
 
 const [cursos, turmas] =
         await Promise.all([get("cursos", true, true),
@@ -113,7 +113,7 @@ form.addEventListener("submit", event => {
     };
 
     async function criarUsuario() {
-      await axios.post(`${http}/usuario`, usuario)
+      await axios.post(`${link}/usuario`, usuario)
       .then(() => {
         mensagemBotao("Ative a conta pelo email!", "OK", "../Login/");
       })

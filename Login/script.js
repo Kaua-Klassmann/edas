@@ -1,4 +1,4 @@
-import { alertarErro, http} from "../exports.js";
+import { alertarErro, link} from "../exports.js";
 
 const form = document.querySelector("form");
 const inputEmail = document.querySelector("#email");
@@ -42,7 +42,7 @@ form.addEventListener("submit", event => {
         };
     
         async function postSession(){
-            await axios.post(`${http}/session`, session)
+            await axios.post(`${link}/session`, session)
             .then(response => {
                 sessionStorage.setItem("token", response.data.token);
                 window.location.href = "../VisualizarProvas/";

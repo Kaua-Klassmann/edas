@@ -1,4 +1,4 @@
-import { returnGet, mensagemBotao, http, config } from "../exports.js"
+import { returnGet, mensagemBotao, link, config } from "../exports.js"
 
 const token = sessionStorage.getItem("token");
 
@@ -12,7 +12,6 @@ if (!token) {
     const divProvas = document.querySelector("#provas");
 
     // COLOCAR PROVAS
-    
     if (provas[0]) {
         function criarLinhaTabela(th, nome, atributoScope) {
             const t = document.createElement(th);
@@ -64,7 +63,6 @@ if (!token) {
                         const tr = document.createElement("tr");
         
                         tr.append(criarLinhaTabela("td", prova.disciplina.nome, ""))
-        
                         tr.append(criarLinhaTabela("td", prova.turma.nome, ""))
     
                         const mes = prova.dia.slice(5, 7);
@@ -83,8 +81,8 @@ if (!token) {
     }
 
     // ABRIR DETALHES
-
     const trs = document.querySelectorAll(".tr");
+
     const detalhes = document.querySelector("#detalhes");
     const pTurma = document.querySelector("#pTurma");
     const pDisciplina = document.querySelector("#pDisciplina");
@@ -96,6 +94,8 @@ if (!token) {
     
     trs.forEach(tr => {
         tr.addEventListener("click", async () => {
+            detalhes.style.display = "block";
+
             let idProva;
             for (let prova of provas) {
                 if (tr.id == prova.id) {
@@ -110,9 +110,12 @@ if (!token) {
                     const ano = prova.dia.slice(0, 4)
 
                     const date = new Date(`${mes} ${dia}, ${ano} ${prova.horario}`)
-                    const diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+                    const diasDaSemana = [
+                        "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira",
+                        "Quinta-feira", "Sexta-feira", "Sábado"
+                    ];
 
-                    let diaSemana = diasDaSemana[date.getDay()];
+                    const diaSemana = diasDaSemana[date.getDay()];
 
                     pData.replaceChildren(document.createTextNode(`${dia}/${mes} - ${diaSemana}`));
                     pHorario.replaceChildren(document.createTextNode(prova.horario.slice(0, 5)));
@@ -123,27 +126,19 @@ if (!token) {
 
             btnDeletar.addEventListener("click", () => {
                 async function deletarProva(){
-                    await axios.delete(`${http}/prova?id=${idProva}`, config);
+                    await axios.delete(`${link}/prova?id=${idProva}`, config);
                     location.reload();
                 }
 
                 deletarProva();
             });
-
-            detalhes.style.display = "block";
         });
     });
     
 
     // FECHAR DETALHES
-
-    document.querySelector("#btnFechar").addEventListener("click", () =>
-        detalhes.style.display = "none"
-    );
+    document.querySelector("#btnFechar").addEventListener("click", detalhes.style.display = "none");
 
     // LOGOFF
-
-    document.querySelector("#btnLogoff").addEventListener("click", () => {
-        sessionStorage.removeItem("token");
-    });
+    document.querySelector("#btnLogoff").addEventListener("click", sessionStorage.removeItem("token"));
 };

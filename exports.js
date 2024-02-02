@@ -1,4 +1,4 @@
-export const http = "https://edas-backend.onrender.com";
+export const link = "https://edas-backend.onrender.com";
 
 export const config = {
   headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
@@ -6,7 +6,7 @@ export const config = {
 
 export async function get(dados, temInput, temSelect) {
   try {
-    const response = await axios.get(`${http}/${dados}`);
+    const response = await axios.get(`${link}/${dados}`);
 
     document.querySelector(".alinharLoading").style.display = "none";
 
@@ -31,7 +31,7 @@ export async function get(dados, temInput, temSelect) {
 };
 
 export async function returnGet(router, query){
-  return await axios.get(`${http}/${router}${query}`, config)
+  return await axios.get(`${link}/${router}${query}`, config)
   .then(response => response.data)
   .catch(() => mensagemErro("Desculpe, nosso servidor está fechado no momento!"));
 }
