@@ -137,8 +137,12 @@ if (!token) {
     
 
     // FECHAR DETALHES
-    document.querySelector("#btnFechar").addEventListener("click", detalhes.style.display = "none");
+    document.querySelector("#btnFechar").addEventListener("click", () => {
+        detalhes.style.display = "none"
+    });
 
     // LOGOFF
-    document.querySelector("#btnLogoff").addEventListener("click", sessionStorage.removeItem("token"));
+    document.querySelector("#btnLogoff").addEventListener("click", () => {
+        sessionStorage.removeItem("token")
+    });
 };
