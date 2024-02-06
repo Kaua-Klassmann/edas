@@ -88,6 +88,7 @@ if (!token) {
     const pDisciplina = document.querySelector("#pDisciplina");
     const pData = document.querySelector("#pData");
     const pHorario = document.querySelector("#pHorario");
+    const pDescrição = document.querySelector("#pDescrição");
     const pUsuario = document.querySelector("#pUsuario");
 
     const btnDeletar = document.querySelector("#btnDeletar");
@@ -119,6 +120,8 @@ if (!token) {
 
                     pData.replaceChildren(document.createTextNode(`${dia}/${mes} - ${diaSemana}`));
                     pHorario.replaceChildren(document.createTextNode(prova.horario.slice(0, 5)));
+
+                    pDescrição.replaceChildren(document.createTextNode(prova.descrição));
 
                     pUsuario.replaceChildren(document.createTextNode(prova.usuario.nome));
                 };
