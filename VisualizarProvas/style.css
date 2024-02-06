@@ -26,14 +26,14 @@ ul {
     list-style: none;
 }
 
-.alinharUsuario {
+.alinhar {
     display: grid;
     place-items: center;
 }
 
 #btnFechar {
     margin-left: 50%;
-    margin-right: 25%;
+    margin-right: 8vw;
     transform: translate(-50%, 0);
 }
 
@@ -44,7 +44,7 @@ ul {
     transform: translate(-50%, -50%);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 992px) {
     #btnFechar {
         margin-right: 3vw;
     }
@@ -55,11 +55,21 @@ ul {
         width: 99vw;
     }
 
+    .alinhar {
+        display: block;
+    }
+
     #btnFechar {
-        margin-right: 10vw;
+        margin-right: 20vw;
     }
 
     li{
         max-height: 10vh;
+    }
+}
+
+@media (max-width: 600px) {
+    #btnFechar {
+        margin-right: 2.5vw;
     }
 }
