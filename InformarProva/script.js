@@ -15,6 +15,7 @@ if (!token) {
     const selectDisciplina = document.querySelector("#disciplina");
     const inputDia = document.querySelector("#dia");
     const inputHorario = document.querySelector("#horario");
+    const inputDescrição = document.querySelector("#descrição");
     const divError = document.querySelector("#error");
 
     colocarNoSelect(turmas, selectTurma);
@@ -38,8 +39,8 @@ if (!token) {
             erro = true;
         }
 
-        if (!inputHorario.value) {
-            divError.append(alertarErro(divError, "Horário inválido"));
+        if (!inputDescrição.value) {
+            divError.append(alertarErro(divError, "Descrição inválida"));
             erro = true;
         }
 
@@ -50,12 +51,14 @@ if (!token) {
             const disciplina = parseInt(selectDisciplina.value);
             const dia = inputDia.value;
             const horario = inputHorario.value;
+            const descrição = inputDescrição.value
 
             const prova = {
                 turma,
                 disciplina,
                 dia,
-                horario
+                horario,
+                descrição
             }
 
             async function cadastrarProva() {
