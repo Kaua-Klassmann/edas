@@ -97,10 +97,9 @@ if (!token) {
         tr.addEventListener("click", async () => {
             detalhes.style.display = "block";
 
-            let idProva;
             for (let prova of provas) {
                 if (tr.id == prova.id) {
-                    idProva = prova.id;
+                    btnDeletar.id = prova.id;
 
                     pDisciplina.replaceChildren(document.createTextNode(prova.disciplina.nome));
 
@@ -126,18 +125,18 @@ if (!token) {
                     pUsuario.replaceChildren(document.createTextNode(prova.usuario.nome));
                 };
             };
-
-            btnDeletar.addEventListener("click", () => {
-                async function deletarProva(){
-                    await axios.delete(`${link}/prova?id=${idProva}`, config);
-                    location.reload();
-                }
-
-                deletarProva();
-            });
         });
     });
-    
+
+    // DELETAR PROVA
+    btnDeletar.addEventListener("click", () => {
+        async function deletarProva(){
+            await axios.delete(`${link}/prova?id=${btnDeletar.id}`, config);
+            location.reload();
+        }
+
+        deletarProva();
+    });
 
     // FECHAR DETALHES
     document.querySelector("#btnFechar").addEventListener("click", () => {
