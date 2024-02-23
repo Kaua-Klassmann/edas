@@ -36,10 +36,6 @@ ul {
     transform: translate(-50%, 0);
 }
 
-#btnDeletar {
-    float: right;
-}
-
 .alinharLoading {
     position: absolute;
     top: 50%;
