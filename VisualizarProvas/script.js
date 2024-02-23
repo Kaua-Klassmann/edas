@@ -5,7 +5,7 @@ const token = sessionStorage.getItem("token");
 if (!token) {
     mensagemBotao("Efetue login para acessar essa página", "OK", "../Login/")
 } else {
-    const provas = await returnGet("provasUsuario", "")
+    let provas = await returnGet("provasUsuario", "")
     
     document.querySelector(".alinharLoading").style.display = "none";
     
@@ -24,59 +24,59 @@ if (!token) {
             return t;
         }
 
+        // ORDENAÇÂO DAS PROVAS POR DATA E HORÁRIO
+
+        provas.sort((a, b) => {
+            if (a.dia > b.dia) {
+                return 1;
+            } else if (a.dia < b.dia) {
+                return -1;
+            } else if (a.horario > b.horario) {
+                return 1
+            } else if (a.horario < b.horario) {
+                return -1
+            }
+
+            return 0;
+        })
+
         let temProva = false;
 
-        let datas = [], horarios = [];
+        for (let prova of provas) {
+            if (!temProva) {
+                divProvas.innerHTML = "";
 
-        for (let prova of provas){
-            datas.push(prova.dia);
-            horarios.push(prova.horario);
-        }
+                var table = document.createElement("table");
+                table.classList.add("table", "table-hover", "align-middle");
+                const thead = document.createElement("thead");
+                thead.classList.add("table-dark");
+                let tr = document.createElement("tr");
+                thead.append(tr);
+                table.append(thead);
+                divProvas.append(table);
 
-        datas = new Set(datas.sort());
-        horarios = new Set(horarios.sort());
+                tr.append(criarLinhaTabela("th", "Disciplina", "col"))
+                tr.append(criarLinhaTabela("th", "Turma", "col"))
+                tr.append(criarLinhaTabela("th", "Data", "col"))
 
-        for (let data of datas){
-            for(let horario of horarios){
-                for (let prova of provas) {
-                    if (prova.dia == data && prova.horario == horario) {
-                        if (!temProva) {
-                            divProvas.innerHTML = "";
-        
-                            var table = document.createElement("table");
-                            table.classList.add("table", "table-hover", "align-middle");
-                            const thead = document.createElement("thead");
-                            thead.classList.add("table-dark");
-                            let tr = document.createElement("tr");
-                            thead.append(tr);
-                            table.append(thead);
-                            divProvas.append(table);
-        
-                            tr.append(criarLinhaTabela("th", "Disciplina", "col"))
-                            tr.append(criarLinhaTabela("th", "Turma", "col"))
-                            tr.append(criarLinhaTabela("th", "Data", "col"))
-        
-                            temProva = true;
-                        };
-        
-                        const tbody = document.createElement("tbody");
-                        const tr = document.createElement("tr");
-        
-                        tr.append(criarLinhaTabela("td", prova.disciplina.nome, ""))
-                        tr.append(criarLinhaTabela("td", prova.turma.nome, ""))
-    
-                        const mes = prova.dia.slice(5, 7);
-                        const dia = prova.dia.slice(8,)
-        
-                        tr.append(criarLinhaTabela("td", `${dia}/${mes}`, ""))
-        
-                        tr.id = prova.id;
-                        tr.classList.add("tr")
-                        tbody.append(tr);
-                        table.append(tbody);
-                    }
-                }
-            }
+                temProva = true;
+            };
+
+            const tbody = document.createElement("tbody");
+            const tr = document.createElement("tr");
+
+            tr.append(criarLinhaTabela("td", prova.disciplina.nome, ""))
+            tr.append(criarLinhaTabela("td", prova.turma.nome, ""))
+
+            const mes = prova.dia.slice(5, 7);
+            const dia = prova.dia.slice(8,)
+
+            tr.append(criarLinhaTabela("td", `${dia}/${mes}`, ""))
+
+            tr.id = prova.id;
+            tr.classList.add("tr")
+            tbody.append(tr);
+            table.append(tbody);
         }
     }
 
