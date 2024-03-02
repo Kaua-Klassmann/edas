@@ -7,6 +7,7 @@ const config = props.config
 
 const provas = ref([])
 const provaSelecionada = ref({
+  id: 0,
   disciplina: {
     nome: ''
   },
@@ -71,21 +72,21 @@ function ordenarProvas() {
   })
 }
 
-async function excluirProva(id) {
+async function excluirProva() {
   for (let i = 0; i < provas.value.length; i++) {
-    if (provas.value[i].id == id) {
-      provas.value.pop(i)
+    if (provas.value[i].id == provaSelecionada.value.id) {
+      provas.value.splice(i, 1)
+      break
     }
   }
 
-  await axios.delete(`prova?id=${id}`, config)
+  await axios.delete(`prova?id=${provaSelecionada.value.id}`, config)
   mostrarDetalhes.value = false
 }
 
 function abrirDetalhes(prova) {
   mostrarDetalhes.value = true
   provaSelecionada.value = prova
-  console.log(provaSelecionada.value)
 }
 
 function fecharDetalhes() {
