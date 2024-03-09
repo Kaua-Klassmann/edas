@@ -147,7 +147,7 @@ main {
 
 @media (min-width: 901px) {
   .box {
-    width: 30vw;
+    width: 25rem
   }
 }
 </style>

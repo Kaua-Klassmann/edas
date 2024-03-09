@@ -240,6 +240,7 @@ main {
 
 .box {
   background-color: #f1f1f1;
+  width: 80vw;
 }
 
 .box > div {
@@ -269,9 +270,9 @@ main {
   transform: translate(-50%, -50%);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   .box {
-    width: 80vw;
+    width: auto
   }
 }
 </style>
