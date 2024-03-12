@@ -1,96 +1,98 @@
 <script setup>
-import { onBeforeMount, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
+import { onBeforeMount, ref } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
 
-const props = defineProps(['config'])
+const props = defineProps(["config"]);
 
-const router = useRouter()
+const router = useRouter();
 
-const config = props.config
+const config = props.config;
 const prova = ref({
   disciplina: 0,
   turma: 1,
-  dia: '',
-  horario: '07:30',
-  descrição: ''
-})
+  dia: "",
+  horario: "07:30",
+  descrição: "",
+});
 
-const erros = ref([])
-const disableInput = ref(true)
-const mostrarLoading = ref(true)
+const erros = ref([]);
+const disableInput = ref(true);
+const mostrarLoading = ref(true);
 
-const disciplinas = ref()
-const turmas = ref()
+const disciplinas = ref();
+const turmas = ref();
 
 onBeforeMount(() => {
-  getHttp()
-})
+  getHttp();
+});
 
 async function getHttp() {
-  ;[disciplinas.value, turmas.value] = await Promise.all([
+  [disciplinas.value, turmas.value] = await Promise.all([
     await axios
-      .get('disciplinasUsuario', config)
+      .get("disciplinasUsuario", config)
       .then((response) => {
-        prova.value.disciplina = response.data[0].id
-        return response.data
+        prova.value.disciplina = response.data[0].id;
+        return response.data;
       })
       .catch((error) => error),
     await axios
-      .get('turmas')
+      .get("turmas")
       .then((response) => response.data)
-      .catch((error) => error)
-  ])
+      .catch((error) => error),
+  ]);
 
-  disableInput.value = false
-  mostrarLoading.value = false
+  disableInput.value = false;
+  mostrarLoading.value = false;
 }
 
 async function enviarProva() {
-  erros.value = []
+  erros.value = [];
 
   if (!prova.value.dia) {
-    erros.value.push('Data inválida!')
-    return
+    erros.value.push("Data inválida!");
+    return;
   }
 
   if (prova.value.descrição.length < 3) {
-    erros.value.push('Informações adicionais inválidas!')
-    return
+    erros.value.push("Informações adicionais inválidas!");
+    return;
   }
 
   async function postProva() {
-    mostrarLoading.value = true
-    const { disciplina, turma, dia, horario, descrição } = prova.value
+    mostrarLoading.value = true;
+    const { disciplina, turma, dia, horario, descrição } = prova.value;
 
     await axios
       .post(
-        'prova',
+        "prova",
         {
           disciplina,
           turma,
           dia,
           horario,
-          descrição
+          descrição,
         },
-        config
+        config,
       )
       .then(() => {
-        alert('Prova cadastrada com sucesso')
-        router.push('/VizualizarProvas')
+        alert("Prova cadastrada com sucesso");
+        router.push("/VizualizarProvas");
       })
       .catch((error) => {
-        if (error.response.status == '400') {
-          erros.value.push('Prova já cadastrada!')
+        if (error.response.status == "400") {
+          erros.value.push("Prova já cadastrada!");
         } else {
-          erros.value.push('"Desculpe, ocorreu algum erro durante o cadastro"!')
+          erros.value.push(
+            '"Desculpe, ocorreu algum erro durante o cadastro"!',
+          );
         }
-      })
+      });
 
-    mostrarLoading.value = false
+    mostrarLoading.value = false;
   }
 
-  postProva()
+  postProva();
 }
 </script>
 
@@ -108,7 +110,11 @@ async function enviarProva() {
               :disabled="disableInput"
               v-model="prova.disciplina"
             >
-              <option v-for="disciplina in disciplinas" :key="disciplina.id" :value="disciplina.id">
+              <option
+                v-for="disciplina in disciplinas"
+                :key="disciplina.id"
+                :value="disciplina.id"
+              >
                 {{ disciplina.nome }}
               </option>
             </select>
@@ -160,7 +166,9 @@ async function enviarProva() {
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label px-2" for="descrição">Informações adicionais</label>
+          <label class="form-label px-2" for="descrição"
+            >Informações adicionais</label
+          >
           <textarea
             class="form-control"
             id="descrição"
