@@ -179,6 +179,7 @@ main {
   bottom: 2rem;
   right: 1rem;
   float: right;
+  height: 0;
 }
 
 .div-botao {
